@@ -1,0 +1,22 @@
+print "Starting maya loading and fbx conversion \n";
+			
+if (`file -q -exists "C:/Users/Russell/DOCUME~1/GitHub/RUSSEL~1/UNITYP~1/Assets/ATC_TO~1.MA"`)
+{
+	file -o "C:/Users/Russell/DOCUME~1/GitHub/RUSSEL~1/UNITYP~1/Assets/ATC_TO~1.MA";
+	FBXExportEmbeddedTextures -v false;
+	// FBXExportHardEdges -v true;
+	FBXExportApplyConstantKeyReducer -v false;
+	FBXExportShowUI -v false;
+
+	print "Before fbx export\n";
+	FBXExport -f "C:/Users/Russell/DOCUME~1/GitHub/RUSSEL~1/UNITYP~1/Temp/ExportedFBXFile.fbx";
+	print "after fbx export\n";
+}
+else
+	print "Could not open Maya file.";
+
+system ("del \"C:\\Users\\Russell\\DOCUME~1\\GitHub\\RUSSEL~1\\UNITYP~1\\Temp\\CommandPipe\"");
+
+$donepipeKill = `fopen "C:/Users/Russell/DOCUME~1/GitHub/RUSSEL~1/UNITYP~1/Temp/SyncPipeKill" "w"`;
+fwrite $donepipeKill "Done";
+fclose $donepipeKill;
